@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "Freeway",
+  "short_name": "Freeway",
+  "description": "Drive the freeway, dodge traffic, and beat your best distance.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "portrait",
+  "background_color": "#17211d",
+  "theme_color": "#17211d",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

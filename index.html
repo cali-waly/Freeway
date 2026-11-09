@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17211d">
+  <meta name="description" content="Drive the freeway, dodge traffic, and beat your best distance.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Freeway</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game" aria-label="Freeway car game">
+    <canvas id="road" aria-label="Drive the red car and avoid traffic"></canvas>
+    <div class="utility-bar">
+      <button type="button" id="sound-toggle" aria-expanded="false" aria-controls="sound-panel">♫ <span>Sound</span></button>
+      <button type="button" id="fullscreen-toggle" aria-label="Enter fullscreen">⛶ <span>Fullscreen</span></button>
+      <section class="sound-panel" id="sound-panel" aria-label="Sound settings" hidden>
+        <label>Music <span id="music-value">38%</span><input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.38"></label>
+        <label>Horn <span id="effects-value">80%</span><input id="effects-volume" type="range" min="0" max="1" step="0.01" value="0.8"></label>
+      </section>
+    </div>
+    <div class="speedometer" id="speedometer" aria-live="polite">
+      <div class="speedo-label">SPEED</div>
+      <div class="speedo-reading"><span id="speed-value">0</span><small id="speed-unit">km/h</small></div>
+      <div class="speedo-track"><i id="speed-bar"></i></div>
+    </div>
+    <div class="cheat-status" id="cheat-status" aria-live="polite">NOCLIP</div>
+    <div class="hud" id="hud" aria-live="polite">
+      <div class="distance"><span id="distance">0</span><small id="distance-unit">m</small></div>
+      <div class="best">BEST <span id="best">0</span></div>
+    </div>
+    <section class="cover" id="cover">
+      <div class="cover-card">
+        <div class="signal"><i></i><i></i><i></i></div>
+        <h1 id="cover-title">FREEWAY</h1>
+        <p id="cover-copy">← → steer · F honk · W accelerate · Q brake · S reverse</p>
+        <div class="mode-picker" role="group" aria-label="Difficulty">
+          <button type="button" data-mode="easy">Easy</button>
+          <button type="button" data-mode="normal" class="selected" aria-pressed="true">Normal</button>
+          <button type="button" data-mode="hard">Hard</button>
+        </div>
+        <button class="unit-toggle" type="button" id="units-toggle" aria-pressed="true" aria-label="Toggle metric system">
+          <span>METRIC SYSTEM</span><b id="unit-choice">METRIC <i></i></b>
+        </button>
+        <button id="start">Drive <span aria-hidden="true">↗</span></button>
+      </div>
+    </section>
+    <nav class="touch-controls" aria-label="Driving controls">
+      <div class="touch-cluster steering-pair">
+        <button type="button" data-steer="-1" aria-label="Steer left">‹</button>
+        <button type="button" data-steer="1" aria-label="Steer right">›</button>
+      </div>
+      <button type="button" class="honk" id="honk-button" aria-label="Honk">HONK</button>
+      <div class="touch-cluster pedal-pair">
+        <button type="button" class="pedal" data-pedal="w" aria-label="Accelerate">▲<small>GO</small></button>
+        <button type="button" class="pedal brake" data-pedal="q" aria-label="Brake">▼<small>STOP</small></button>
+        <button type="button" class="pedal reverse" data-pedal="s" aria-label="Reverse">↶<small>REV</small></button>
+      </div>
+    </nav>
+  </main>
+  <script type="module" src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(error => {
+          console.warn('Freeway offline support could not be started:', error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
